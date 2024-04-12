@@ -78,7 +78,7 @@ const Layout = () => {
                                 className="focus:ring-2 focus:ring-indigo-600 focus:outline-none appearance-none text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 border-none w-36 md:w-96"
                                 type="text"
                                 aria-label="Search"
-                                placeholder="Search"
+                                placeholder="Qidirish"
                             />
                         </form>
                         <div className="flex gap-4 items-center">
@@ -98,14 +98,12 @@ const Layout = () => {
                                     leaveFrom="opacity-100 translate-y-0"
                                     leaveTo="opacity-0 translate-y-1"
                                 >
-                                    <Popover.Panel className="absolute right-0 z-10 mt-3 w-[20rem] max-w-sm transform px-4 sm:px-0 lg:max-w-3xl">
-                                        <ul>
-                                            <li></li>
-                                        </ul>
-                                        <div className="overflow-hidden rounded-lg shadow-lg bg-white">
+                                    <Popover.Panel className="absolute right-0 z-10 mt-3 md:w-[16rem] w-[10rem] max-w-sm transform px-4 sm:px-0 lg:max-w-3xl">
+                                      
+                                        <div className="overflow-hidden  rounded-lg shadow-lg bg-slate-100">
                                             <div className="p-4 cursor-pointer">
-                                                <p
-                                                    className="p-2 text-center rounded-md bg-red-400 text-white"
+                                                <button
+                                                    className="p-2 text-center whitespace-nowrap w-full rounded-md bg-red-400 text-white"
                                                     onClick={() => {
                                                         // auth.signout(() => {
                                                         //     navigate("/sign-in", { replace: true });
@@ -115,8 +113,8 @@ const Layout = () => {
                                                         // });
                                                     }}
                                                 >
-                                                    Chiqib ketish
-                                                </p>
+                                                    Logout
+                                                </button>
                                             </div>
                                         </div>
                                     </Popover.Panel>
