@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
     InformationCircleIcon,
     LockClosedIcon,
@@ -13,7 +14,7 @@ import { baseUrl } from "@/constants";
 
 
 // {username:,password}
-function Login() {
+function Login({setToken}) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -23,14 +24,20 @@ function Login() {
         event.preventDefault();
         const forma = new FormData(event.target)
         const formData = Object.fromEntries(forma.entries())
+        setLoading(true)
         try {
             const response = await axios.post(`${baseUrl}/v1/users/login/`, formData)
-            console.log(response)
-
-
+            localStorage.setItem("token",response.data?.token)
+            setToken(response.data?.token)
+            localStorage.setItem("role",response.data?.role)
+            setLoading(false)
+            setError("")
+            navigate("/")
         }
         catch (err) {
-            console.log(err)
+            setError("Tel yoki parol xato! ")
+            setLoading(false)
+
         }
 
     }
@@ -50,8 +57,8 @@ function Login() {
                     </div>
                     {error && (
                         <div className="text-sm  p-4 bg-indigo-100 rounded-lg flex items-center">
-                            <InformationCircleIcon className="w-6 h-6 fill-blue-600" />
-                            <span className="text-indigo-600 ml-1">{error}</span>
+                            <InformationCircleIcon className="w-6 h-6 fill-red-700" />
+                            <span className="text-red-600 text-md font-semibold ml-1">{error}</span>
                         </div>
                     )}
                     <form

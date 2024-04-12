@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useRef, Fragment } from "react";
 import {
     Bars3Icon,
@@ -5,20 +6,24 @@ import {
     ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-// import Nav from "../components/Nav";
 import { Popover, Transition } from "@headlessui/react";
 import Sidebar from "@/components/sidebar";
-// import { useAuth } from "../contexts/auth";
+// import { removeNotificationMessage } from "../features/headerSlice";
+// import {
+//   NotificationContainer,
+// } from "react-notifications";
+import "react-notifications/lib/notifications.css";
+import ModalLayout from "./ModalLayout";
 
 
 
 
-const Layout = () => {
+const Layout = ({ setToken }) => {
 
 
     // const auth = useAuth();
     const location = useLocation();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const asideRef = useRef(null);
     const asideMask = useRef(null);
 
@@ -86,7 +91,7 @@ const Layout = () => {
                                 <Popover.Button className="flex items-center gap-2 outline-none">
 
                                     {/* <span className="text-sm text-gray-600">{auth.user}</span> */}
-                                    <span className="text-sm text-gray-600">otabek</span>
+                                    <span className="text-sm text-gray-600 font-semibold">Admin</span>
                                     <ChevronDownIcon className="w-4 h-4 stroke-gray-400 stroke-2" />
                                 </Popover.Button>
                                 <Transition
@@ -99,12 +104,15 @@ const Layout = () => {
                                     leaveTo="opacity-0 translate-y-1"
                                 >
                                     <Popover.Panel className="absolute right-0 z-10 mt-3 md:w-[16rem] w-[10rem] max-w-sm transform px-4 sm:px-0 lg:max-w-3xl">
-                                      
+
                                         <div className="overflow-hidden  rounded-lg shadow-lg bg-slate-100">
                                             <div className="p-4 cursor-pointer">
                                                 <button
                                                     className="p-2 text-center whitespace-nowrap w-full rounded-md bg-red-400 text-white"
                                                     onClick={() => {
+                                                        navigate("/login")
+                                                        localStorage.clear()
+                                                        setToken("")
                                                         // auth.signout(() => {
                                                         //     navigate("/sign-in", { replace: true });
                                                         //     window.localStorage.removeItem("user");
@@ -132,6 +140,11 @@ const Layout = () => {
                     ref={asideMask}
                 ></div>
             </div>
+
+
+            {/* <NotificationContainer /> */}
+
+            <ModalLayout />
         </>
     );
 };
