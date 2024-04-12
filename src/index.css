@@ -24,3 +24,16 @@
     border-radius: 20px;
     position: absolute;
   }
+  table  tr{
+    border-bottom: 1px solid rgba(131, 127, 127,0.4);
+  }
+  
+  table th,table td{
+    text-align: center;
+    padding: 10px;
+    white-space: nowrap;
+  }
+  table tbody tr:not(.total-table-row):hover{
+    background-color: rgba(113, 142, 230, 0.6);
+    transition: 0.3s linear;
+  }

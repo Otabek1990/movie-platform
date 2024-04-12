@@ -1,16 +1,17 @@
-// import { MODAL_BODY_TYPES } from "../lib/globalConstants";
+// import { MODAL_BODY_TYPES } from "@/lib/globalConstants";
 import { useSelector, useDispatch } from "react-redux";
-// import { closeModal } from "../features/common/modalSlice";
-// import ConfirmationModalBody from "@components/modals/ConfirmationModalBody"
+// import { closeModal } from "@/features/common/modalSlice";
+import ConfirmationModalBody from "@/components/modals/ConfirmationModalBody"
 import CategoryModal from "@/pages/protected/categories/CategoryModal";
 import { closeModal } from "@/features/modalSlice";
 import { MODAL_BODY_TYPES } from "@/lib/globalConstants";
-// import CategoryModalBody from "../features/categories/CategoryModalBody";
-// import ProductModalBody from "../features/products/ProductModalBody";
-// import MeasureModalBody from "../features/measures/MeasureModalBody";
-// import UserModalBody from "../features/users/UserModalBody";
-// import StoreModalBody from "../features/allProcessesStores/rawProductStore/StoreModalBody";
-// import SendRawProductModalBody from "../features/allProcessesStores/rawProductStore/SendRawProductModalBody";
+import GenreModal from "@/pages/protected/genres/GenreModal";
+// import CategoryModalBody from "@/features/categories/CategoryModalBody";
+// import ProductModalBody from "@/features/products/ProductModalBody";
+// import MeasureModalBody from "@/features/measures/MeasureModalBody";
+// import UserModalBody from "@/features/users/UserModalBody";
+// import StoreModalBody from "@/features/allProcessesStores/rawProductStore/StoreModalBody";
+// import SendRawProductModalBody from "@/features/allProcessesStores/rawProductStore/SendRawProductModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -45,6 +46,18 @@ function ModalLayout() {
             {
               [MODAL_BODY_TYPES.CATEGORY]: (
                 <CategoryModal
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.GENRE]: (
+                <GenreModal
+                  closeModal={close}
+                  extraObject={extraObject}
+                />
+              ),
+              [MODAL_BODY_TYPES.CONFIRMATION]: (
+                <ConfirmationModalBody
                   closeModal={close}
                   extraObject={extraObject}
                 />

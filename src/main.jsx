@@ -5,7 +5,7 @@ import { Provider } from "react-redux"
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import SuspenseContent from './containers/SuspenseContent.jsx'
-import { store } from './app/store.js'
+import  store from './app/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Suspense fallback={<SuspenseContent />}>

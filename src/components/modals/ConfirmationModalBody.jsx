@@ -1,6 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
-import { CONFIRMATION_MODAL_CLOSE_TYPES } from "../../lib/globalConstants";
-import { showNotification } from "../headerSlice";
+import { CONFIRMATION_MODAL_CLOSE_TYPES } from "@/lib/globalConstants";
+import { showNotification } from "@/features/headerSlice";
+import { useDeleteCategoryMutation } from "@/services/categoryApi";
+import { Button } from "../ui/button";
+import { useDeleteGenreMutation } from "@/services/genresApi";
 // import { useDeleteCategoryMutation } from "../../../services/categoryApi";
 // import { useDeleteProductMutation } from "../../../services/productApi";
 // import { useDeleteMeasureMutation } from "../../../services/measureApi";
@@ -10,7 +14,8 @@ import { showNotification } from "../headerSlice";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
     const dispatch = useDispatch();
-    //   const [deleteCategory] = useDeleteCategoryMutation();
+      const [deleteCategory] = useDeleteCategoryMutation();
+      const [deleteGenre]=useDeleteGenreMutation()
     //   const [deleteProduct] = useDeleteProductMutation();
     //   const [deleteMeasure] = useDeleteMeasureMutation();
     //   const [deleteDepartment] = useDeleteDepartmentMutation();
@@ -18,22 +23,35 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     //   const [deleteProcess]=useDeleteProcessMutation()
 
     const { message, type, id } = extraObject;
+  
 
     const proceedWithYes = async () => {
-        alert("yesss")
+    
 
-        // if (type === CONFIRMATION_MODAL_CLOSE_TYPES.CATEGORY) {
-        //   await deleteCategory(id)
-        //     .unwrap()
-        //     .then((res) => {
-        //       dispatch(
-        //         showNotification({ message: "Kategoriya o'chirildi!", status: 1 })
-        //       );
-        //     })
-        //     .catch((error) => {
-        //       console.log(error);
-        //     });
-        // }
+        if (type === CONFIRMATION_MODAL_CLOSE_TYPES.CATEGORY) {
+          await deleteCategory(id)
+            .unwrap()
+            .then((res) => {
+              dispatch(
+                showNotification({ message: "Kategoriya o'chirildi!", status: 1 })
+              );
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+        if (type === CONFIRMATION_MODAL_CLOSE_TYPES.GENRE) {
+          await deleteGenre(id)
+            .unwrap()
+            .then((res) => {
+              dispatch(
+                showNotification({ message: "Janr o'chirildi!", status: 1 })
+              );
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
         // if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PRODUCT) {
         //   await deleteProduct(id)
         //     .unwrap()
@@ -96,19 +114,19 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
 
     return (
         <>
-            <p className=" text-xl mt-8 text-center">{message}</p>
+            <p className=" text-lg mt-2 text-center">{message}</p>
 
-            <div className="modal-action mt-12">
-                <button className="btn btn-outline   " onClick={() => closeModal()}>
+            <div className="modal-action mt-4 w-full flex items-center gap-3 justify-center">
+                <Button className="btn btn-outline bg-red-400 text-md  " onClick={() => closeModal()}>
                     Bekor qilish
-                </button>
+                </Button>
 
-                <button
-                    className="btn btn-primary w-36"
+                <Button
+                    className="btn btn-primary w-36 text-md bg-indigo-500"
                     onClick={() => proceedWithYes()}
                 >
                     Ha
-                </button>
+                </Button>
             </div>
         </>
     );
