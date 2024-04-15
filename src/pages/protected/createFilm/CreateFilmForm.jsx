@@ -7,9 +7,11 @@ import UploadInput from "@/components/inputs/UploadInput";
 import LoadingModal from "@/components/loaders/Loading";
 import ErrorText from "@/components/typography/ErrorText";
 import { Button } from "@/components/ui/button";
+import { useAddCadreMutation } from "@/services/cadresApi";
 import { useCategoriesQuery } from "@/services/categoryApi";
 import { useAddCinemaMutation } from "@/services/cinemaApi";
 import { useGenresQuery } from "@/services/genresApi";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 
@@ -21,33 +23,56 @@ export function CreateFilmForm() {
     const { data: categories, isSuccess: isSuccessCategoris } = useCategoriesQuery()
     const { data: genres, isSuccess: isSuccessGenres } = useGenresQuery()
     const [addCinema, { isLoading, isError }] = useAddCinemaMutation()
+    const [addCadre, { isLoading: isLoadingCadress, isError: isErrorCadres }] = useAddCadreMutation()
+    const [cadreImages, setCadreImages] = useState([])
     const navigate = useNavigate()
-
+    const setCadreImagesHandler = (chosenImages) => {
+        setCadreImages(chosenImages)
+    }
     const handleCreateFilmSubmit = async (event) => {
         event.preventDefault();
         const forma = new FormData(event.target)
         const data = Object.fromEntries(forma.entries())
         console.log(data)
+        const formDataToSend = new FormData();
 
-        // Create a new FormData object
-        // const formDataToSend = new FormData();
+        for (const [key, value] of Object.entries(data)) {
+            formDataToSend.append(key, value);
+        }
 
-        // // Iterate over the key-value pairs in the 'data' object
-        // for (const [key, value] of Object.entries(data)) {
-        //     // Append each key-value pair to the FormData object
-        //     formDataToSend.append(key, value);
-        // }
-        // try {
-        //     const response = await addCinema(formDataToSend)
-        //     console.log(response, 'response')
-        //     if (response.data?.success) {
-        //         navigate
-        //     }
+        let formDataEntries = formDataToSend.entries();
 
-        // }
-        // catch (err) {
-        //     console.log(err, 'err')
-        // }
+        for (let entry of formDataEntries) {
+            let [key, value] = entry;
+            console.log("Key:", key);
+            console.log("Value:", value);
+        }
+
+
+        try {
+            const response = await addCinema(formDataToSend)
+            console.log(response, 'response')
+            if (response.data?.success) {
+                if (cadreImages.length > 0) {
+                    let formDataCadres = new FormData()
+                    formDataCadres.append("cinema_id", response?.data?.id)
+                    for (let item of cadreImages) {
+                        formDataCadres.append('image', item.file);
+                    }
+                    try {
+                        const res = await addCadre(formDataCadres)
+                        res.data?.success && navigate("/films")
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+                }
+            }
+
+        }
+        catch (err) {
+            console.log(err, 'err')
+        }
     }
 
 
@@ -136,7 +161,7 @@ export function CreateFilmForm() {
                 name="main_image"
                 required={false}
                 fileType="image"
-                isMultiple={true}
+
 
             />
             <UploadInput
@@ -162,6 +187,7 @@ export function CreateFilmForm() {
 
             />
             <UploadInput
+                setCadreImagesHandler={setCadreImagesHandler}
                 onChange={(selectedImages) => console.log("Selected image:", selectedImages)}
                 previewWidth="100%"
                 previewHeight="400px"
@@ -173,8 +199,8 @@ export function CreateFilmForm() {
                 isMultiple={true}
 
             />
-            {isLoading && <LoadingModal />}
-            {isError && <ErrorText>
+            {(isLoading || isLoadingCadress) && <LoadingModal />}
+            {(isError || isErrorCadres) && <ErrorText>
                 Xatolik sodir bo&apos;ldi
             </ErrorText>}
 

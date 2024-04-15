@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom"
 
 import { useCategoriesQuery } from "@/services/categoryApi";
 import { ColorRing } from "react-loader-spinner";
+import { useCinemasQuery } from "@/services/cinemaApi";
+import ErrorText from "@/components/typography/ErrorText";
+import FilmsUi from "./FilmsUi";
 // import ErrorText from "@/components/typography/ErrorText";
 // import CategoryUi from "./CategoryUi";
 // import { MODAL_BODY_TYPES } from "@/lib/globalConstants";
@@ -29,9 +32,9 @@ const TopSideButtons = () => {
     );
 };
 function Categories() {
-    // const { data: categories, isSuccess, isError, isLoading } = useCategoriesQuery()
+    const { data: cinemas, isSuccess, isError, isLoading } = useCinemasQuery()
 
-    // console.log(categories)
+   
 
     return (
         <div className="w-full">
@@ -39,11 +42,11 @@ function Categories() {
                 headLine={"Filmlar"}
                 TopSideButtons={<TopSideButtons />}
             >
-                {/* {isError && (
+                {isError && (
                     <ErrorText styleClass="text-4xl mt-5 text-center font-bold">
-                       Xatolik sodir bo'ldi! <body>
-                        
-                       </body>
+                        Xatolik sodir bo'ldi! <body>
+
+                        </body>
                     </ErrorText>
                 )}
                 {isLoading && (
@@ -58,14 +61,9 @@ function Categories() {
                     />
                 )}
                 {isSuccess && (
-                    <div className="my-6">
-                        <CategoryUi
-                            categories={categories?.results} />
-
-                    </div>
+                    <FilmsUi cinemas={cinemas.results} />
                 )
-
-                } */}
+                }
 
 
 

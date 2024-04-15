@@ -4,6 +4,7 @@ import HeaderReducer from "@/features/headerSlice";
 import { categoryApi } from "@/services/categoryApi";
 import { genresApi } from "@/services/genresApi";
 import { cinemaApi } from "@/services/cinemaApi";
+import { cadresApi } from "@/services/cadresApi";
 
 const combinedReducer = {
   modal: ModalReducer,
@@ -11,6 +12,7 @@ const combinedReducer = {
   [categoryApi.reducerPath]: categoryApi.reducer,
   [genresApi.reducerPath]: genresApi.reducer,
   [cinemaApi.reducerPath]: cinemaApi.reducer,
+  [cadresApi.reducerPath]: cadresApi.reducer,
 };
 
 export default configureStore({
@@ -19,6 +21,7 @@ export default configureStore({
     getDefaultMiddleware().concat(
       categoryApi.middleware,
       genresApi.middleware,
-      cinemaApi.middleware
+      cinemaApi.middleware,
+      cadresApi.middleware,
     ),
 });
