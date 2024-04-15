@@ -29,7 +29,7 @@ const TopSideButtons = () => {
         className="py-2 px-3 dark:bg-slate-700 bg-blue-700 rounded text-sm text-white"
         onClick={() => openAddNewUserModal()}
       >
-        Janr qoshish
+        Janr qo'shish
       </button>
     </div>
   );

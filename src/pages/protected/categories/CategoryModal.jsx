@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 import ErrorText from "@/components/typography/ErrorText";
-import { showNotification } from "@/features/headerSlice";
 import { Button } from "@/components/ui/button";
 import InputText from "@/components/inputs/InputText";
 import { useAddCategoryMutation, useUpdateCategoryMutation } from "@/services/categoryApi";
@@ -14,14 +12,13 @@ import { CirclesWithBar } from "react-loader-spinner";
 //   useUpdateMeasureMutation,
 // } from "../../services/measureApi";
 
+
 function CategoryModal({ closeModal, extraObject }) {
-  const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
   const [categoryData, setCategoryData] = useState({
     name: extraObject?.name || "",
   });
-
-  console.log(extraObject)
+  // const { toast } = useToast()
   const [addCategory, { isLoading, isError }] = useAddCategoryMutation()
   const [updateCategory, { isLoading: isLoadingUpdate, isError: isErrorUpdate }] = useUpdateCategoryMutation()
 
@@ -34,12 +31,9 @@ function CategoryModal({ closeModal, extraObject }) {
         : addCategory(categoryData)
       ).unwrap();
       console.log('Category added successfully:', result);
-      dispatch(
-        showNotification({
-          message: ` ${extraObject ? "Tahrirlandi" : "Qo'shildi"}!`,
-          status: 1,
-        })
-      );
+      // toast({
+      //   title: "Kategoriya qo'shildi!",
+      // })
       closeModal();
     } catch (error) {
       setErrorMessage("Xatolik ruy berdi!");
@@ -52,7 +46,7 @@ function CategoryModal({ closeModal, extraObject }) {
     setErrorMessage("");
     setCategoryData({ ...categoryData, [updateType]: value });
   };
- 
+
   return (
     <div className="flex flex-col items-center gap-4">
 

@@ -14,6 +14,7 @@ import Sidebar from "@/components/sidebar";
 // } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import ModalLayout from "./ModalLayout";
+import { Toaster } from "@/components/ui/toaster"
 
 
 
@@ -141,8 +142,9 @@ const Layout = ({ setToken }) => {
                 ></div>
             </div>
 
-
+           
             {/* <NotificationContainer /> */}
+            <Toaster  />
 
             <ModalLayout />
         </>

@@ -5,7 +5,7 @@ import NotFound from './pages/NotFound';
 import ProtectedRoutes from "./routes/ProtectedRoutes"
 import { routes } from './routes';
 const Login = lazy(() => import("./pages/Login"));
-const Home = lazy(() => import("./pages/protected/Home"));
+const Home = lazy(() => import("./pages/protected/home"));
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || "")
@@ -27,4 +27,6 @@ function App() {
 }
 
 export default App
+
+
 

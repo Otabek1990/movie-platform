@@ -15,7 +15,6 @@ function InputText({
 
   const updateInputValue = (val) => {
     setValue(val);
-
     updateFormValue({ updateType, value: val });
   };
 

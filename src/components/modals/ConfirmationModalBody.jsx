@@ -5,131 +5,99 @@ import { showNotification } from "@/features/headerSlice";
 import { useDeleteCategoryMutation } from "@/services/categoryApi";
 import { Button } from "../ui/button";
 import { useDeleteGenreMutation } from "@/services/genresApi";
-// import { useDeleteCategoryMutation } from "../../../services/categoryApi";
-// import { useDeleteProductMutation } from "../../../services/productApi";
-// import { useDeleteMeasureMutation } from "../../../services/measureApi";
-// import { useDeleteDepartmentMutation } from "../../../services/departmentApi";
-// import { useDeleteUserMutation } from "../../../services/userApi";
-// import { useDeleteProcessMutation } from "../../../services/processesApi";
+import { useState } from "react";
+import { CirclesWithBar } from "react-loader-spinner";
+
+
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
-    const dispatch = useDispatch();
-      const [deleteCategory] = useDeleteCategoryMutation();
-      const [deleteGenre]=useDeleteGenreMutation()
-    //   const [deleteProduct] = useDeleteProductMutation();
-    //   const [deleteMeasure] = useDeleteMeasureMutation();
-    //   const [deleteDepartment] = useDeleteDepartmentMutation();
-    //   const [deleteUser] = useDeleteUserMutation();
-    //   const [deleteProcess]=useDeleteProcessMutation()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const dispatch = useDispatch();
+  const [deleteCategory] = useDeleteCategoryMutation();
+  const [deleteGenre] = useDeleteGenreMutation()
 
-    const { message, type, id } = extraObject;
-  
+  const { message, type, id } = extraObject;
 
-    const proceedWithYes = async () => {
-    
+  const handleDeletion = async (deleteFunction, successMessage, dispatch) => {
+    setLoading(true)
+    try {
+      await deleteFunction.unwrap();
+      dispatch(showNotification({ message: successMessage, status: 1 }));
+      setLoading(false)
+      setError("")
+      closeModal();
 
-        if (type === CONFIRMATION_MODAL_CLOSE_TYPES.CATEGORY) {
-          await deleteCategory(id)
-            .unwrap()
-            .then((res) => {
-              dispatch(
-                showNotification({ message: "Kategoriya o'chirildi!", status: 1 })
-              );
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-        if (type === CONFIRMATION_MODAL_CLOSE_TYPES.GENRE) {
-          await deleteGenre(id)
-            .unwrap()
-            .then((res) => {
-              dispatch(
-                showNotification({ message: "Janr o'chirildi!", status: 1 })
-              );
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-        // if (type === CONFIRMATION_MODAL_CLOSE_TYPES.PRODUCT) {
-        //   await deleteProduct(id)
-        //     .unwrap()
-        //     .then((res) => {
-        //       dispatch(
-        //         showNotification({ message: `tovar o'chirildi!`, status: 1 })
-        //       );
-        //     })
-        //     .catch((error) => {
-        //       console.log(error);
-        //     });
-        // }
-        // if (type === CONFIRMATION_MODAL_CLOSE_TYPES.MEASURE) {
-        //   await deleteMeasure(id)
-        //     .unwrap()
-        //     .then((res) => {
-        //       dispatch(
-        //         showNotification({ message: `O'lchov birligi o'chirildi!`, status: 1 })
-        //       );
-        //     })
-        //     .catch((error) => {
-        //       console.log(error);
-        //     });
-        // }
-        // if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DEPARTMENT) {
-        //   await deleteDepartment(id)
-        //     .unwrap()
-        //     .then((res) => {
-        //       dispatch(
-        //         showNotification({ message: `Bo'lim o'chirildi!`, status: 1 })
-        //       );
-        //     })
-        //     .catch((error) => {
-        //       console.log(error);
-        //     });
-        // }
-        // if (type === CONFIRMATION_MODAL_CLOSE_TYPES.USER) {
-        //   await deleteUser(id)
-        //     .unwrap()
-        //     .then((res) => {
-        //       dispatch(showNotification({ message: `Hodim o'chirildi!`, status: 1 }));
-        //     })
-        //     .catch((error) => {
-        //       console.log(error);
-        //     });
-        // }
-        // if (type === CONFIRMATION_MODAL_CLOSE_TYPES.RAWPRODUCTSTORE) {
-        //   await deleteProcess(id)
-        //     .unwrap()
-        //     .then((res) => {
-        //       dispatch(showNotification({ message: `tovar o'chirildi!`, status: 1 }));
-        //     })
-        //     .catch((error) => {
-        //       console.log(error);
-        //     });
-        // }
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+      setError("O'chirishda xatolik bo'ldi!")
 
-        closeModal();
-    };
+    }
+  };
 
-    return (
-        <>
-            <p className=" text-lg mt-2 text-center">{message}</p>
+  const deletionHandlers = {
+    [CONFIRMATION_MODAL_CLOSE_TYPES.CATEGORY]: async (id, dispatch) => {
+      await handleDeletion(deleteCategory(id), "Kategoriya o'chirildi!", dispatch);
+    },
+    [CONFIRMATION_MODAL_CLOSE_TYPES.GENRE]: async (id, dispatch) => {
+      await handleDeletion(deleteGenre(id), "Janr o'chirildi!", dispatch);
+    }
+  };
 
-            <div className="modal-action mt-4 w-full flex items-center gap-3 justify-center">
-                <Button className="btn btn-outline bg-red-400 text-md  " onClick={() => closeModal()}>
-                    Bekor qilish
-                </Button>
 
-                <Button
-                    className="btn btn-primary w-36 text-md bg-indigo-500"
-                    onClick={() => proceedWithYes()}
-                >
-                    Ha
-                </Button>
-            </div>
-        </>
-    );
+  const proceedWithYes = async () => {
+
+    if (deletionHandlers[type]) {
+      deletionHandlers[type](id, dispatch);
+    } else {
+      setError("O'chirishda xatolik bo'ldi!")
+    }
+
+  };
+
+  return (
+    <>
+      <p className=" text-lg mt-2 text-center">{message}</p>
+
+      {loading &&
+        <div className="w-full flex items-center justify-center">
+
+          <CirclesWithBar
+            height="30"
+            width="30"
+            color="blue"
+            outerCircleColor="blue"
+            innerCircleColor="blue"
+            barColor="blue"
+            ariaLabel="circles-with-bar-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        </div>
+      }
+      {error &&
+        <div className="w-full flex items-center justify-center">
+          <p className="text-red-500">{error}</p>
+        </div>
+
+      }
+
+      <div className="modal-action mt-4 w-full flex items-center gap-3 justify-center">
+        <Button className="btn btn-outline bg-red-400 text-md  " onClick={() => closeModal()}>
+          Bekor qilish
+        </Button>
+
+        <Button
+          className="btn btn-primary w-36 text-md bg-indigo-500"
+          onClick={() => proceedWithYes()}
+        >
+          Ha
+        </Button>
+      </div>
+    </>
+  );
 }
 
 export default ConfirmationModalBody;

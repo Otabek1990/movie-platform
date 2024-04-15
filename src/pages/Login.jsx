@@ -11,15 +11,17 @@ import { useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 import axios from "axios";
 import { baseUrl } from "@/constants";
+import FormInput from "@/components/inputs/FormInput";
 
 
 // {username:,password}
-function Login({setToken}) {
+function Login({ setToken }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
 
     const navigate = useNavigate();
+
     const handleLoginSubmit = async (event) => {
         event.preventDefault();
         const forma = new FormData(event.target)
@@ -27,9 +29,9 @@ function Login({setToken}) {
         setLoading(true)
         try {
             const response = await axios.post(`${baseUrl}/v1/users/login/`, formData)
-            localStorage.setItem("token",response.data?.token)
+            localStorage.setItem("token", response.data?.token)
             setToken(response.data?.token)
-            localStorage.setItem("role",response.data?.role)
+            localStorage.setItem("role", response.data?.role)
             setLoading(false)
             setError("")
             navigate("/")
@@ -67,42 +69,28 @@ function Login({setToken}) {
                         onSubmit={handleLoginSubmit}
                     >
                         <div className="rounded-md shadow-sm space-y-4">
-                            <div>
-                                <label
-                                    htmlFor="username"
-                                    className="text-md font-medium text-white"
-                                >
-                                    Tel raqam
-                                </label>
-                                <input
-                                    id="username"
-                                    name="username"
-                                    type="text"
-                                    autoComplete="username"
-                                    required
-                                    className="mt-1 text-md appearance-none rounded relative block w-full px-3 py-2 md:py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-lg"
-                                    placeholder="Tel raqam"
 
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    htmlFor="password"
-                                    className="text-md font-medium text-white"
-                                >
-                                    Parol
-                                </label>
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    autoComplete="off"
-                                    required
-                                    className="mt-1 text-md appearance-none rounded relative block w-full px-3 py-2 md:py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-lg"
-                                    placeholder="parol"
+                            <FormInput
+                                labelTitle={"Tel raqam"}
+                                labelStyle={"text-md font-medium text-white"}
+                                type="text"
+                                containerStyle={""}
+                                placeholder={"Tel raqam kiriting"}
+                                name="username"
+                                required={true}
 
-                                />
-                            </div>
+                            />
+                            <FormInput
+                                labelTitle={"Parol"}
+                                labelStyle={"text-md font-medium text-white"}
+                                type="password"
+                                containerStyle={""}
+                                placeholder={"Parol kiriting"}
+                                name="password"
+                                required={true}
+
+                            />
+
                         </div>
 
                         <div>

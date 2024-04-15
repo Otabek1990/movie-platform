@@ -16,7 +16,7 @@ function TitleCard({topMargin,TopSideButtons,headLine,children,title}) {
           "flex gap-2 flex-wrap content-start  items-center justify-between"
         }
       >
-        <span className="text-xl"> {headLine || title}</span>
+        <span className="text-xl md:text-2xl"> {headLine || title}</span>
         <div className="flex flex-wrap content-start items-center gap-3">
      
           {TopSideButtons && TopSideButtons}

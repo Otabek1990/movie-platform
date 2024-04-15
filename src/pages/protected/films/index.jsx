@@ -1,51 +1,45 @@
 import TitleCard from "@/components/cards/TitleCard"
-import { useDispatch } from "react-redux"
-import { openModal } from "@/features/modalSlice";
-import { MODAL_BODY_TYPES } from "@/lib/globalConstants";
+import { useNavigate } from "react-router-dom"
+
 import { useCategoriesQuery } from "@/services/categoryApi";
 import { ColorRing } from "react-loader-spinner";
-import ErrorText from "@/components/typography/ErrorText";
-import CategoryUi from "./CategoryUi";
+// import ErrorText from "@/components/typography/ErrorText";
+// import CategoryUi from "./CategoryUi";
 // import { MODAL_BODY_TYPES } from "@/lib/globalConstants";
 
 
 
 
 const TopSideButtons = () => {
-    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
-    const openAddNewUserModal = () => {
-        dispatch(
-            openModal({
-                title: "Kategoriya qo'shish",
-                bodyType: MODAL_BODY_TYPES.CATEGORY,
-            })
-        );
-    };
+    const addNewFilm = () => {
+        navigate("/createFilm")
+    }
 
     return (
         <div className="inline-block float-right">
             <button
                 className="py-2 px-3 dark:bg-slate-700 bg-blue-700 rounded text-sm text-white"
-                onClick={() => openAddNewUserModal()}
+                onClick={addNewFilm}
             >
-                Kategoriya qo'shish
+                Yangi film kiritish
             </button>
         </div>
     );
 };
 function Categories() {
-    const { data: categories, isSuccess, isError, isLoading } = useCategoriesQuery()
+    // const { data: categories, isSuccess, isError, isLoading } = useCategoriesQuery()
 
-    console.log(categories)
+    // console.log(categories)
 
     return (
         <div className="w-full">
             <TitleCard
-                headLine={"Kategoriyalar"}
+                headLine={"Filmlar"}
                 TopSideButtons={<TopSideButtons />}
             >
-                {isError && (
+                {/* {isError && (
                     <ErrorText styleClass="text-4xl mt-5 text-center font-bold">
                        Xatolik sodir bo'ldi! <body>
                         
@@ -71,7 +65,7 @@ function Categories() {
                     </div>
                 )
 
-                }
+                } */}
 
 
 
