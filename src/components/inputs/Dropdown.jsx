@@ -11,7 +11,7 @@ function Dropdown({
 
     return (
         <div className='flex w-full flex-col items-start gap-y-1' >
-            <label className='text-sm md:text-md' htmlFor={name}>
+            <label className='text-sm md:text-md capitalize' htmlFor={name}>
                 {labelTitle}
             </label>
             <select
@@ -19,7 +19,7 @@ function Dropdown({
                 className='w-full p-2 cursor-pointer border border-slate-400' name={name} id={name}>
                 <option disabled value="">{placeholder}</option>
                 {
-                    options.map(opt => (
+                    options?.map(opt => (
                         <option key={opt.id} value={opt[value]}>
                             {opt.name}
                         </option>
