@@ -3,6 +3,8 @@ import { MdLocalMovies } from "react-icons/md";
 import { MdMovieFilter } from "react-icons/md";
 import { ImFilm } from "react-icons/im";
 import { PiFilmStripDuotone } from "react-icons/pi";
+import { IoImagesOutline } from "react-icons/io5";
+
 
 export const sidebarNavLists = [
   {
@@ -38,6 +40,12 @@ export const sidebarNavLists = [
         name: "Seriallar",
         id: 5,
         Icon: PiFilmStripDuotone,
+      },
+      {
+        path: "banners",
+        name: "Bannerlar",
+        id: 6,
+        Icon: IoImagesOutline,
       },
     ],
   },

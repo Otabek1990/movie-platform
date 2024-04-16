@@ -1,18 +1,26 @@
 /* eslint-disable react/prop-types */
 
-import { sliceText } from "@/lib/sliceText"
+
+import { useNavigate } from "react-router-dom"
 
 
-function FilmCard({ main_image, name, category, genre, year, description }) {
-    
+function FilmCard({ main_image, name, id, cardType, category, genre, year, description }) {
+    const navigate = useNavigate()
+    const goToDetailPage = () => {
+        const url = `/${cardType}/${id}`
+        navigate(url)
+    }
+
     return (
         <div className="p-2 w-full flex flex-col items-center gap-1 bg-blue-400 cursor-pointer ">
-            <img className="h-56 object-cover w-full " src={"http://159.223.145.49:8080/media/cinema/main_image/kungfu-panda_W8z4Hta.webp"} alt={name} />
-            <h2>Nomi: {name}</h2>
-            <h2>Categoriya: {category?.name}</h2>
-            <h2>Janri: {genre?.name}</h2>
-            <h2>Yili : {year}</h2>
-            <h2>Film haqida: {sliceText(description,15)}</h2>
+            <img
+                onClick={goToDetailPage}
+                className="h-56 object-cover w-full " src={main_image} alt={name} />
+            <h2 className="text-lg">
+                <span className="capitalize font-semibold">
+                {name}
+            </span></h2>
+           
 
         </div>
     )

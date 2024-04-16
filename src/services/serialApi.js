@@ -5,49 +5,49 @@ const getToken = () => {
   const token = localStorage.getItem("token");
   return token ? `Token ${token}` : "";
 };
-export const cinemaApi = createApi({
-  reducerPath: "cinemaApi",
+export const serialApi = createApi({
+  reducerPath: "serialApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseUrl}`,
   }),
-  tagTypes: ["Cinema"],
+  tagTypes: ["Serial"],
   endpoints: (builder) => ({
-    cinemas: builder.query({
+    serials: builder.query({
       query: () => ({
-        url: "/v1/core/admin/cinema/",
+        url: "/v1/core/admin/series/",
         headers: {
           Authorization: getToken(),
         },
       }),
-      providesTags: ["Cinema"],
+      providesTags: ["Serial"],
     }),
-    cinemaItemDetails: builder.query({
+    serialItemDetails: builder.query({
       query: (id) => ({
-        url: `/v1/core/admin/cinema/${id}/`,
+        url: `/v1/core/admin/series/${id}/`,
         headers: {
           Authorization: getToken(),
         },
         method: "GET",
       }),
-      providesTags: ["Cinema"],
+      providesTags: ["Serial"],
     }),
 
-    addCinema: builder.mutation({
-      query: (cinema) => ({
-        url: "/v1/core/admin/cinema/",
+    addSerial: builder.mutation({
+      query: (series) => ({
+        url: "/v1/core/admin/series/",
         method: "POST",
-        body: cinema,
+        body: series,
         headers: {
           Authorization: getToken(),
         },
       }),
 
-      invalidatesTags: ["Cinema"],
+      invalidatesTags: ["Serial"],
     }),
 
-    updateCinema: builder.mutation({
+    updateSerial: builder.mutation({
       query: ({ id, ...rest }) => ({
-        url: `/v1/core/admin/cinema/${id}/`,
+        url: `/v1/core/admin/series/${id}/`,
         method: "PUT",
         body: rest,
         headers: {
@@ -55,24 +55,24 @@ export const cinemaApi = createApi({
         },
       }),
 
-      invalidatesTags: ["Cinema"],
+      invalidatesTags: ["Serial"],
     }),
-    deleteCinema: builder.mutation({
+    deleteSerial: builder.mutation({
       query: (id) => ({
-        url: `/v1/core/admin/cinema/${id}/`,
+        url: `/v1/core/admin/series/${id}/`,
         method: "DELETE",
         headers: {
           Authorization: getToken(),
         },
       }),
-      invalidatesTags: ["Cinema"],
+      invalidatesTags: ["Serial"],
     }),
   }),
 });
 export const {
-  useCinemasQuery,
-  useCinemaItemDetailsQuery,
-  useAddCinemaMutation,
-  useUpdateCinemaMutation,
-  useDeleteCinemaMutation,
-} = cinemaApi;
+  useSerialsQuery,
+  useSerialItemDetailsQuery,
+  useAddSerialMutation,
+  useUpdateSerialMutation,
+  useDeleteSerialMutation,
+} = serialApi;

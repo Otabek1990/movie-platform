@@ -38,10 +38,8 @@ function UploadInput({
             let file = selectedImages[i];
             fileListArray.push({ id: nanoid(), file: file });
         }
-
-
         setImages(prev => [...prev, ...fileListArray]);
-        if(onChange){
+        if (onChange) {
             onChange(images)
         }
 
@@ -55,6 +53,13 @@ function UploadInput({
             setCadreImagesHandler(images)
         }
     }, [images])
+
+    useEffect(() => {
+        return () => {
+            setFileData(null)
+            setImages([])
+        }
+    }, [])
 
     return (
         <div className='flex w-full flex-col items-start gap-2'>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 
 import Dropdown from "@/components/inputs/Dropdown";
@@ -11,18 +12,21 @@ import { useAddCadreMutation } from "@/services/cadresApi";
 import { useCategoriesQuery } from "@/services/categoryApi";
 import { useAddCinemaMutation } from "@/services/cinemaApi";
 import { useGenresQuery } from "@/services/genresApi";
+import { useAddSerialMutation } from "@/services/serialApi";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 
 
 
-export function CreateFilmForm() {
+export function CreateFilmForm({ formTitle }) {
 
 
     const { data: categories, isSuccess: isSuccessCategoris } = useCategoriesQuery()
     const { data: genres, isSuccess: isSuccessGenres } = useGenresQuery()
     const [addCinema, { isLoading, isError }] = useAddCinemaMutation()
+    const [addSerial, { isLoading: isLoadingSerial, isError: isErrorSerial }] = useAddSerialMutation()
+
     const [addCadre, { isLoading: isLoadingCadress, isError: isErrorCadres }] = useAddCadreMutation()
     const [cadreImages, setCadreImages] = useState([])
     const navigate = useNavigate()
@@ -50,7 +54,7 @@ export function CreateFilmForm() {
 
 
         try {
-            const response = await addCinema(formDataToSend)
+            const response = await (formTitle === "Film" ? addCinema(formDataToSend) : addSerial(formDataToSend))
             console.log(response, 'response')
             if (response.data?.success) {
                 if (cadreImages.length > 0) {
@@ -61,7 +65,7 @@ export function CreateFilmForm() {
                     }
                     try {
                         const res = await addCadre(formDataCadres)
-                        res.data?.success && navigate("/films")
+                        res.data?.success && navigate(`/${formTitle.toLowerCase()}s`)
                     }
                     catch (err) {
                         console.log(err)
@@ -73,11 +77,12 @@ export function CreateFilmForm() {
         catch (err) {
             console.log(err, 'err')
         }
+
     }
 
 
     return (
-        <form className="w-3/4 md:w-1/2 flex flex-col items-start gap-3" onSubmit={handleCreateFilmSubmit}>
+        <form className="w-3/4 md:w-1/2 my-4 flex flex-col items-start gap-3" onSubmit={handleCreateFilmSubmit}>
             <Dropdown
                 required={true}
                 options={isSuccessCategoris ? categories.results : []}
@@ -113,7 +118,7 @@ export function CreateFilmForm() {
                 name={"rejisor"}
             />
             <FormInput
-                labelTitle={"Film chiqarilgan yili"}
+                labelTitle={"Chiqarilgan yili"}
                 labelStyle={""}
                 type="number"
                 containerStyle={"w-full"}
@@ -122,10 +127,10 @@ export function CreateFilmForm() {
                 name={"year"}
             />
             <TextArea
-                labelTitle={"Film haqida"}
+                labelTitle={`${formTitle} haqida`}
                 labelStyle={""}
                 containerStyle={"w-full"}
-                placeholder={"Film haqida yozing"}
+                placeholder={`${formTitle} haqida yozing`}
                 required={false}
                 name={"description"}
                 minLengthOfWords={0}
@@ -144,7 +149,7 @@ export function CreateFilmForm() {
 
             />
             <FormInput
-                labelTitle={"Film trailer linki (Youtube yoki boshqa linklar)"}
+                labelTitle={`${formTitle} trailer linki (Youtube yoki boshqa linklar)`}
                 labelStyle={""}
                 type="text"
                 containerStyle={"w-full"}
@@ -175,17 +180,19 @@ export function CreateFilmForm() {
                 fileType="video"
 
             />
-            <UploadInput
-                onChange={(selectedImage) => console.log("Selected image:", selectedImage)}
-                previewWidth="100%"
-                previewHeight="400px"
-                accept="video/*"
-                label="Film videosini yuklash"
-                name="video"
-                required={false}
-                fileType="video"
+            {formTitle === "Film" &&
+                <UploadInput
+                    onChange={(selectedImage) => console.log("Selected image:", selectedImage)}
+                    previewWidth="100%"
+                    previewHeight="400px"
+                    accept="video/*"
+                    label={`${formTitle} videosini yuklash`}
+                    name="video"
+                    required={false}
+                    fileType="video"
 
-            />
+                />
+            }
             <UploadInput
                 setCadreImagesHandler={setCadreImagesHandler}
                 onChange={(selectedImages) => console.log("Selected image:", selectedImages)}
@@ -193,14 +200,14 @@ export function CreateFilmForm() {
                 previewHeight="400px"
                 accept="image/*"
                 name="image"
-                label="Film kadrlari rasmlari"
+                label={`${formTitle} kadrlari rasmlari`}
                 required={false}
                 fileType="images"
                 isMultiple={true}
 
             />
-            {(isLoading || isLoadingCadress) && <LoadingModal />}
-            {(isError || isErrorCadres) && <ErrorText>
+            {((formTitle === "Film" ? isLoading : isLoadingSerial) || isLoadingCadress) && <LoadingModal />}
+            {((formTitle === "Film" ? isError : isErrorSerial) || isErrorCadres) && <ErrorText>
                 Xatolik sodir bo&apos;ldi
             </ErrorText>}
 

@@ -1,45 +1,32 @@
 import TitleCard from "@/components/cards/TitleCard"
-import { useNavigate } from "react-router-dom"
+
 import { ColorRing } from "react-loader-spinner";
 import { useCinemasQuery } from "@/services/cinemaApi";
 import ErrorText from "@/components/typography/ErrorText";
-import FilmsUi from "./FilmsUi";
+import { useSerialItemDetailsQuery } from "@/services/serialApi";
+import { useParams } from "react-router-dom";
+import SerialDetailUi from "./SerialDetailUi";
+// import ErrorText from "@/components/typography/ErrorText";
+// import CategoryUi from "./CategoryUi";
+// import { MODAL_BODY_TYPES } from "@/lib/globalConstants";
 
 
 
 
-const TopSideButtons = () => {
-    const navigate = useNavigate()
 
-    const addNewFilm = () => {
-        navigate("/createFilm")
-    }
-
-    return (
-        <div className="inline-block float-right">
-            <button
-                className="py-2 px-3 dark:bg-slate-700 bg-blue-700 rounded text-sm text-white"
-                onClick={addNewFilm}
-            >
-                Yangi film kiritish
-            </button>
-        </div>
-    );
-};
-function Films() {
-    const { data: cinemas, isSuccess, isError, isLoading } = useCinemasQuery()
-
-   
+function SerialDetail() {
+    const { id } = useParams()
+    const { data: serialDetail, isSuccess, isError, isLoading } = useSerialItemDetailsQuery(id)
 
     return (
         <div className="w-full">
             <TitleCard
-                headLine={"Filmlar"}
-                TopSideButtons={<TopSideButtons />}
+                headLine={"Serial haqida"}
+
             >
                 {isError && (
                     <ErrorText styleClass="text-4xl mt-5 text-center font-bold">
-                        Xatolik sodir bo&apos;ldi! <body>
+                        Xatolik sodir bo'ldi! <body>
 
                         </body>
                     </ErrorText>
@@ -56,7 +43,7 @@ function Films() {
                     />
                 )}
                 {isSuccess && (
-                    <FilmsUi cardType="film" cinemas={cinemas.results} />
+                    <SerialDetailUi serialDetail={serialDetail} />
                 )
                 }
 
@@ -67,4 +54,4 @@ function Films() {
     )
 }
 
-export default Films
+export default SerialDetail

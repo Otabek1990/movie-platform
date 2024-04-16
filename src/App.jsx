@@ -11,7 +11,7 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || "")
 
   return (
-    <>
+    <div className='h-auto '>
       <Routes>
         <Route path="login" element={<Login setToken={setToken} />} />
         <Route element={<ProtectedRoutes setToken={setToken} token={token} />}>
@@ -22,7 +22,8 @@ function App() {
           <Route path={"*"} element={<NotFound />} />
         </Route>
       </Routes>
-    </>
+      
+    </div>
   )
 }
 

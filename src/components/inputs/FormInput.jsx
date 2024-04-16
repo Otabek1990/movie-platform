@@ -13,7 +13,7 @@ function FormInput({
 
     return (
         <div className={` flex flex-col  items-start gap-1 ${containerStyle}`}>
-            <label htmlFor={name} className={"text-sm md:text-md"+labelStyle}>
+            <label htmlFor={name} className={"text-sm whitespace-nowrap md:text-md"+labelStyle}>
                 {labelTitle}
                 {required &&
                     <sup className="text-md text-red-700">

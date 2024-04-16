@@ -131,7 +131,7 @@ const Layout = ({ setToken }) => {
                             </Popover>
                         </div>
                     </header>
-                    <main className="p-4">
+                    <main className="p-4 ">
                         <Outlet />
                     </main>
                 </div>

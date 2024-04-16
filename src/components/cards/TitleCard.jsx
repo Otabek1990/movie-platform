@@ -8,7 +8,7 @@ function TitleCard({topMargin,TopSideButtons,headLine,children,title}) {
   return (
     <div
       className={
-        "card w-full min-h-[83vh] p-4 bg-base-100  shadow-xl bg-white " + (topMargin || "mt-2 ")
+        "card w-full p-4 bg-base-100  shadow-xl bg-white " + (topMargin || "mt-2 ")
       }
     >
       <Subtitle
@@ -25,7 +25,7 @@ function TitleCard({topMargin,TopSideButtons,headLine,children,title}) {
 
       <div className="divider mt-1"></div>
 
-      <div className="h-full w-full pb-4 bg-base-100">{children}</div>
+      <div className=" w-full pb-4 bg-base-100">{children}</div>
     </div>
   );
 }

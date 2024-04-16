@@ -2,13 +2,13 @@
 import FilmCard from '@/components/cards/FilmCard'
 
 
-function FilmsUi({ cinemas }) {
+function FilmsUi({ cinemas, cardType }) {
     console.log(cinemas)
     return (
         <div className='my-4 w-full min-h-10'>
             <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4'>
                 {cinemas.map(cinema => (
-                    <FilmCard key={cinema.id} {...cinema} />
+                    <FilmCard cardType={cardType} key={cinema.id} {...cinema} />
                 ))}
             </div>
 

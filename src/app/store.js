@@ -5,6 +5,7 @@ import { categoryApi } from "@/services/categoryApi";
 import { genresApi } from "@/services/genresApi";
 import { cinemaApi } from "@/services/cinemaApi";
 import { cadresApi } from "@/services/cadresApi";
+import { serialApi } from "@/services/serialApi";
 
 const combinedReducer = {
   modal: ModalReducer,
@@ -13,6 +14,7 @@ const combinedReducer = {
   [genresApi.reducerPath]: genresApi.reducer,
   [cinemaApi.reducerPath]: cinemaApi.reducer,
   [cadresApi.reducerPath]: cadresApi.reducer,
+  [serialApi.reducerPath]: serialApi.reducer,
 };
 
 export default configureStore({
@@ -23,5 +25,6 @@ export default configureStore({
       genresApi.middleware,
       cinemaApi.middleware,
       cadresApi.middleware,
+      serialApi.middleware,
     ),
 });

@@ -1,41 +1,38 @@
 import TitleCard from "@/components/cards/TitleCard"
-import { useNavigate } from "react-router-dom"
+
 import { ColorRing } from "react-loader-spinner";
-import { useCinemasQuery } from "@/services/cinemaApi";
+import { useCinemaItemDetailsQuery } from "@/services/cinemaApi";
 import ErrorText from "@/components/typography/ErrorText";
-import FilmsUi from "./FilmsUi";
+import { useNavigate, useParams } from "react-router-dom";
+import FilmDetailUi from "./FilmDetailUi";
+import { Button } from "@/components/ui/button";
+import { FaChevronLeft } from "react-icons/fa";
 
 
 
 
-const TopSideButtons = () => {
-    const navigate = useNavigate()
 
-    const addNewFilm = () => {
-        navigate("/createFilm")
-    }
+
+function FilmDetail() {
+    const { id } = useParams()
+    const { data: cinemaDetail, isSuccess, isError, isLoading } = useCinemaItemDetailsQuery(id)
+const navigate=useNavigate()
+
+
 
     return (
-        <div className="inline-block float-right">
-            <button
-                className="py-2 px-3 dark:bg-slate-700 bg-blue-700 rounded text-sm text-white"
-                onClick={addNewFilm}
-            >
-                Yangi film kiritish
-            </button>
-        </div>
-    );
-};
-function Films() {
-    const { data: cinemas, isSuccess, isError, isLoading } = useCinemasQuery()
-
-   
-
-    return (
-        <div className="w-full">
+        <div className="w-full p-3">
+                <Button
+                    onClick={() => navigate(-1)}
+                    className="bg-indigo-600  flex items-center gap-1 text-white hover:bg-indigo-800 ">
+                    <FaChevronLeft />
+                    <span>
+                        Orqaga
+                    </span>
+                </Button>
             <TitleCard
-                headLine={"Filmlar"}
-                TopSideButtons={<TopSideButtons />}
+                headLine={"Film Haqida"}
+
             >
                 {isError && (
                     <ErrorText styleClass="text-4xl mt-5 text-center font-bold">
@@ -56,7 +53,7 @@ function Films() {
                     />
                 )}
                 {isSuccess && (
-                    <FilmsUi cardType="film" cinemas={cinemas.results} />
+                    <FilmDetailUi cinemaDetail={cinemaDetail} />
                 )
                 }
 
@@ -67,4 +64,4 @@ function Films() {
     )
 }
 
-export default Films
+export default FilmDetail
