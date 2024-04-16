@@ -4,13 +4,14 @@ import { Button } from "@/components/ui/button"
 import { baseUrl } from "@/constants";
 import { sliceText } from "@/lib/sliceText"
 import AddSerialForm from "./AddSerialForm";
+import SerialVideos from "./SerialVideos";
 
 
 function SerialDetailUi({ serialDetail }) {
     console.log(serialDetail)
     const { cadre, id, category, name, rejisor, main_users,
         series_qty, series,
-        trailer, trailer_url, year, video, description, genre, main_image } = serialDetail;
+        trailer, trailer_url, year, description, genre, main_image } = serialDetail;
 
     const showTrailerVideo = () => {
         if (!trailer_url || !trailer_url?.startsWith("http")) {
@@ -94,6 +95,15 @@ function SerialDetailUi({ serialDetail }) {
                 )}
 
             </div>
+
+            <div className="my-2 border-b border-gray-700 pb-4 ">
+
+
+                {
+                    (series && series?.length > 0) ? <SerialVideos series={series} />
+                        : <h1 className="font-bold text-xl">Qismlar mavjud emas</h1>
+                }
+            </div>
             <div className="border-b border-gray-700 pb-4">
                 <h1 className="font-bold my-2 text-xl">
                     Serialdan kadrlar {""}
@@ -122,6 +132,7 @@ function SerialDetailUi({ serialDetail }) {
                 <h1 className="text-lg">Seriya qo&apos;shish</h1>
                 <AddSerialForm parent_id={id} />
             </div>
+
 
         </div>
     )

@@ -1,14 +1,14 @@
 import TitleCard from "@/components/cards/TitleCard"
 
 import { ColorRing } from "react-loader-spinner";
-import { useCinemasQuery } from "@/services/cinemaApi";
+
 import ErrorText from "@/components/typography/ErrorText";
 import { useSerialItemDetailsQuery } from "@/services/serialApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SerialDetailUi from "./SerialDetailUi";
-// import ErrorText from "@/components/typography/ErrorText";
-// import CategoryUi from "./CategoryUi";
-// import { MODAL_BODY_TYPES } from "@/lib/globalConstants";
+import { Button } from "@/components/ui/button";
+import { FaChevronLeft } from "react-icons/fa";
+
 
 
 
@@ -17,9 +17,17 @@ import SerialDetailUi from "./SerialDetailUi";
 function SerialDetail() {
     const { id } = useParams()
     const { data: serialDetail, isSuccess, isError, isLoading } = useSerialItemDetailsQuery(id)
-
+    const navigate=useNavigate()
     return (
         <div className="w-full">
+            <Button
+                onClick={() => navigate(-1)}
+                className="bg-indigo-600  flex items-center gap-1 text-white hover:bg-indigo-800 ">
+                <FaChevronLeft />
+                <span>
+                    Orqaga
+                </span>
+            </Button>
             <TitleCard
                 headLine={"Serial haqida"}
 
@@ -46,6 +54,7 @@ function SerialDetail() {
                     <SerialDetailUi serialDetail={serialDetail} />
                 )
                 }
+
 
 
 

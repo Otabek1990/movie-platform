@@ -24,7 +24,7 @@ function Banners() {
             >
                 {isError && (
                     <ErrorText styleClass="text-4xl mt-5 text-center font-bold">
-                        Xatolik sodir bo'ldi! <body>
+                        Xatolik sodir bo&apos;ldi! <body>
 
                         </body>
                     </ErrorText>
