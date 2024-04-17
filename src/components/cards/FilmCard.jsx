@@ -4,7 +4,7 @@
 import { useNavigate } from "react-router-dom"
 
 
-function FilmCard({ main_image, name, id, cardType, category, genre, year, description }) {
+function FilmCard({ main_image, name, id, cardType }) {
     const navigate = useNavigate()
     const goToDetailPage = () => {
         const url = `/${cardType}/${id}`

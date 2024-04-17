@@ -4,6 +4,9 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
   plugins: [react()],
+  // optimizeDeps:{
+  //   exclude: ['source-map-js'],
+  // },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

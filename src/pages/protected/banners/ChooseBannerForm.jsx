@@ -1,14 +1,15 @@
+/* eslint-disable react/prop-types */
 import Dropdown from '@/components/inputs/Dropdown'
 import LoadingModal from '@/components/loaders/Loading'
 import ErrorText from '@/components/typography/ErrorText'
 import { Button } from '@/components/ui/button'
 import { useAddBannerMutation } from '@/services/bannerApi'
-import React from 'react'
 
-function ChooseBannerForm({ options ,formTitle}) {
 
-    const [addBanner ,{ isLoading, isError }] = useAddBannerMutation()
-    const handleChooseFilm = async(event)=>{
+function ChooseBannerForm({ options, formTitle }) {
+
+    const [addBanner, { isLoading, isError }] = useAddBannerMutation()
+    const handleChooseFilm = async (event) => {
         event.preventDefault();
         const forma = new FormData(event.target)
         const data = Object.fromEntries(forma.entries())
@@ -16,21 +17,22 @@ function ChooseBannerForm({ options ,formTitle}) {
             const response = await addBanner(data)
             console.log(response)
         }
-        catch(err){
+        catch (err) {
             console.log(err.message)
         }
+        event.target.reset()
     }
     return (
-        <form onSubmit={handleChooseFilm} className='flex flex-col gap-2 items-start justify-start'>
+        <form onSubmit={handleChooseFilm} className='flex flex-col gap-2 w-full items-start justify-start'>
             <Dropdown labelTitle={`${formTitle}lardan tanleng`}
-            placeholder={`${formTitle}ni tanleng`}
-            name={formTitle === "film" ? "cinema" :"series"}
-            value={"id"}
-            options={options}
-            required={true}
+                placeholder={`${formTitle}ni tanlang`}
+                name={formTitle === "film" ? "cinema" : "series"}
+                value={"id"}
+                options={options}
+                required={true}
             />
-            {isLoading  && <LoadingModal />}
-            {isError  && <ErrorText>
+            {isLoading && <LoadingModal />}
+            {isError && <ErrorText>
                 Xatolik sodir bo&apos;ldi
             </ErrorText>}
 
