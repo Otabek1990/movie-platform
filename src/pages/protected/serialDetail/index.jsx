@@ -17,21 +17,34 @@ import { FaChevronLeft } from "react-icons/fa";
 function SerialDetail() {
     const { id } = useParams()
     const { data: serialDetail, isSuccess, isError, isLoading } = useSerialItemDetailsQuery(id)
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     return (
         <div className="w-full">
-            <Button
-                onClick={() => navigate(-1)}
-                className="bg-indigo-600  flex items-center gap-1 text-white hover:bg-indigo-800 ">
-                <FaChevronLeft />
-                <span>
-                    Orqaga
-                </span>
-            </Button>
             <TitleCard
-                headLine={"Serial haqida"}
+                headLine={""}
 
             >
+                <div className="w-full flex items-centor border-b-2 pb-2 border-gray-400 justify-between">
+                    <Button
+                        onClick={() => navigate(-1)}
+
+                        className="bg-indigo-600 h-8  flex items-center gap-1 text-white hover:bg-indigo-800 ">
+                        <FaChevronLeft />
+                        <span>
+                            Orqaga
+                        </span>
+                    </Button>
+                    <Button
+                        onClick={() => navigate(`/editSerial/${id}`)}
+
+                        className="bg-indigo-600 h-8 flex items-center gap-1 text-white hover:bg-indigo-800 ">
+
+                        <span>
+                            Tahrirlash
+                        </span>
+                    </Button>
+
+                </div>
                 {isError && (
                     <ErrorText styleClass="text-4xl mt-5 text-center font-bold">
                         Xatolik sodir bo'ldi! <body>
@@ -59,7 +72,7 @@ function SerialDetail() {
 
 
             </TitleCard>
-        </div>
+        </div >
     )
 }
 

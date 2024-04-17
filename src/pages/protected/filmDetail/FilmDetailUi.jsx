@@ -58,7 +58,7 @@ function FilmDetailUi({ cinemaDetail }) {
           </h3>
           <Button
             onClick={showTrailerVideo}
-            className="text-md bg-indigo-600 hover:bg-indigo-700 text-white">
+            className="text-base h-8 bg-indigo-600 hover:bg-indigo-700 text-white">
             Trailerni ko&apos;rish
           </Button>
 

@@ -16,24 +16,37 @@ import { FaChevronLeft } from "react-icons/fa";
 function FilmDetail() {
     const { id } = useParams()
     const { data: cinemaDetail, isSuccess, isError, isLoading } = useCinemaItemDetailsQuery(id)
-const navigate=useNavigate()
+    const navigate = useNavigate()
 
 
 
     return (
         <div className="w-full p-3">
-                <Button
-                    onClick={() => navigate(-1)}
-                    className="bg-indigo-600  flex items-center gap-1 text-white hover:bg-indigo-800 ">
-                    <FaChevronLeft />
-                    <span>
-                        Orqaga
-                    </span>
-                </Button>
             <TitleCard
-                headLine={"Film Haqida"}
+                headLine={""}
 
             >
+                <div className="w-full flex items-centor border-b-2 pb-2 border-gray-400 justify-between">
+                    <Button
+                        onClick={() => navigate(-1)}
+
+                        className="bg-indigo-600 h-8  flex items-center gap-1 text-white hover:bg-indigo-800 ">
+                        <FaChevronLeft />
+                        <span>
+                            Orqaga
+                        </span>
+                    </Button>
+                    <Button
+                        onClick={() => navigate(`/editFilm/${id}`)}
+
+                        className="bg-indigo-600 h-8 flex items-center gap-1 text-white hover:bg-indigo-800 ">
+
+                        <span>
+                            Tahrirlash
+                        </span>
+                    </Button>
+
+                </div>
                 {isError && (
                     <ErrorText styleClass="text-4xl mt-5 text-center font-bold">
                         Xatolik sodir bo&apos;ldi! <body>
