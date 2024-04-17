@@ -4,7 +4,7 @@
 import { useNavigate } from "react-router-dom"
 
 
-function FilmCard({ main_image, name, id, cardType }) {
+function FilmCard({ main_image, name, id, cardType,category }) {
     const navigate = useNavigate()
     const goToDetailPage = () => {
         const url = `/${cardType}/${id}`
@@ -19,6 +19,10 @@ function FilmCard({ main_image, name, id, cardType }) {
             <h2 className="text-lg">
                 <span className="capitalize font-semibold">
                 {name}
+            </span></h2>
+            <h2 className="text-md">
+                <span className="capitalize font-semibold">
+                Kategoriya: {category?.name}
             </span></h2>
            
 

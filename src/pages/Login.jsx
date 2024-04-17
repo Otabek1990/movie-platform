@@ -12,6 +12,7 @@ import { CirclesWithBar } from "react-loader-spinner";
 import axios from "axios";
 import { baseUrl } from "@/constants";
 import FormInput from "@/components/inputs/FormInput";
+import Banner from "../assets/images/banner2.jpg"
 
 
 // {username:,password}
@@ -45,7 +46,7 @@ function Login({ setToken }) {
     }
 
     return (
-        <div className="grid bg-banner bg-cover  grid-cols-1 lg:grid-cols-2 h-screen">
+        <div style={{backgroundImage:`url(${Banner})`}} className="grid  bg-cover  grid-cols-1 lg:grid-cols-2 h-screen">
             <div
                 className="hidden  bg-cover bg-no-repeat bg-center lg:block"
 
