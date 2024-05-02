@@ -11,6 +11,7 @@ const FilmDetail = lazy(() => import("../pages/protected/filmDetail"));
 const SerialDetail = lazy(() => import("../pages/protected/serialDetail"));
 const EditFilm = lazy(() => import("../pages/protected/editFilm"));
 const EditSerial = lazy(() => import("../pages/protected/editSerial"));
+const TopMovies = lazy(() => import("../pages/protected/topMovies"));
 
 export const routes = [
   {
@@ -66,7 +67,12 @@ export const routes = [
   },
   {
     path: "/editSerial/:id",
-    element: EditFilm,
+    element: EditSerial,
     id: 11,
+  },
+  {
+    path: "/topMovies",
+    element: TopMovies,
+    id: 12,
   },
 ];

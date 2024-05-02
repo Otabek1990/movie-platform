@@ -47,6 +47,12 @@ export const sidebarNavLists = [
         id: 6,
         Icon: IoImagesOutline,
       },
+      {
+        path: "topMovies",
+        name: "Eng yaxshi filmlar",
+        id: 7,
+        Icon: IoImagesOutline,
+      },
     ],
   },
 ];
