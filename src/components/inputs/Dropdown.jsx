@@ -21,7 +21,7 @@ function Dropdown({
                 {
                     options?.map(opt => (
                         <option key={opt.id} value={opt[value]}>
-                            {opt.name}
+                            {opt.name_uz}
                         </option>
                     ))
                 }

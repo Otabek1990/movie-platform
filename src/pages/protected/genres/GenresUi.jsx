@@ -13,7 +13,7 @@ function GenresUi({
     const tableDatas = {
         title: "genre",
         tableHeads: ["№", "Janr nomi", "Actions"],
-        tableBodyItems: ["name"],
+        tableBodyItems: ["name_uz"],
         data: genres,
 
     };

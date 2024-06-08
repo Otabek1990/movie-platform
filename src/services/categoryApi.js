@@ -48,7 +48,7 @@ export const categoryApi = createApi({
     updateCategory: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/v1/core/admin/category/${id}/`,
-        method: "PUT",
+        method: "PATCH",
         body: rest,
         headers: {
           Authorization: getToken(),

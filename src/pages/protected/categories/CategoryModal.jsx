@@ -16,14 +16,14 @@ import { CirclesWithBar } from "react-loader-spinner";
 function CategoryModal({ closeModal, extraObject }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [categoryData, setCategoryData] = useState({
-    name: extraObject?.name || "",
+    name_uz: extraObject?.name_uz || "",
   });
   // const { toast } = useToast()
   const [addCategory, { isLoading, isError }] = useAddCategoryMutation()
   const [updateCategory, { isLoading: isLoadingUpdate, isError: isErrorUpdate }] = useUpdateCategoryMutation()
-
+console.log(categoryData)
   const saveEditCategory = async () => {
-    if (categoryData.name.trim() === "")
+    if (categoryData.name_uz.trim() === "")
       return setErrorMessage("Kategoriya kiriting!");
     try {
       const result = await (extraObject
@@ -52,8 +52,8 @@ function CategoryModal({ closeModal, extraObject }) {
 
       <InputText
         type="text"
-        defaultValue={categoryData.name}
-        updateType="name"
+        defaultValue={categoryData.name_uz || ""}
+        updateType="name_uz"
         containerStyle="mt-2"
         labelTitle="Kategoriya nomi"
         updateFormValue={updateFormValue}

@@ -13,7 +13,7 @@ function CategoryUi({
     const tableDatas = {
         title: "category",
         tableHeads: ["№", "Kategoriya nomi", "Actions"],
-        tableBodyItems: ["name"],
+        tableBodyItems: ["name_uz"],
         data: categories,
 
     };
