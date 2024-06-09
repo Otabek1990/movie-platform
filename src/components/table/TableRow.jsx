@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 
 function TableRow({ title, dataItem, index, tableBodyItems }) {
 
-
+console.log(title)
     const dispatch = useDispatch();
     console.log(dataItem)
     const openEditModal = () => {

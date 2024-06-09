@@ -44,7 +44,7 @@ function AddSerialForm({ parent_id }) {
                 labelStyle={""}
                 containerStyle={"w-full"}
                 type="text"
-                name="name"
+                name="name_uz"
                 required={true}
                 placeholder={"Qism nomini kiriting"}
             />
@@ -55,7 +55,7 @@ function AddSerialForm({ parent_id }) {
                 accept="image/*"
                 label="Banner rasmini yuklash"
                 name="main_image"
-                required={true}
+                required={false}
                 fileType="image"
 
 

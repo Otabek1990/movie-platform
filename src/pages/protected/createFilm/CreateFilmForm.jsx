@@ -106,7 +106,7 @@ export function CreateFilmForm({ formTitle }) {
                 containerStyle={"w-full"}
                 placeholder={"Nom kiriting"}
                 required={true}
-                name={"name"}
+                name={"name_uz"}
             />
             <FormInput
                 labelTitle={"Rejissori"}
@@ -132,7 +132,7 @@ export function CreateFilmForm({ formTitle }) {
                 containerStyle={"w-full"}
                 placeholder={`${formTitle} haqida yozing`}
                 required={false}
-                name={"description"}
+                name={"description_uz"}
                 minLengthOfWords={0}
                 maxLengthOfWords={10000}
 

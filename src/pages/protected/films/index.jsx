@@ -28,6 +28,7 @@ const TopSideButtons = () => {
 };
 function Films() {
     const { data: cinemas, isSuccess, isError, isLoading } = useCinemasQuery()
+    console.log(cinemas)
 
    
 

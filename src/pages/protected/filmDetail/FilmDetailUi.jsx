@@ -6,7 +6,7 @@ import { sliceText } from "@/lib/sliceText"
 
 
 function FilmDetailUi({ cinemaDetail }) {
-  const { cadre, id, category, name, rejisor, main_users, trailer, trailer_url, year, video, description, genre, main_image } = cinemaDetail;
+  const { cadre, id, category, name_uz, rejisor, main_users, trailer, trailer_url, year, video, description, genre, main_image } = cinemaDetail;
 
   const showTrailerVideo = () => {
     if (!trailer_url || !trailer_url?.startsWith("http")) {
@@ -23,17 +23,17 @@ function FilmDetailUi({ cinemaDetail }) {
         <div className=" col-span-1 h-full flex-1   flex flex-col items-start  gap-1 font-semibold text-md md:text-lg md:col-span-2">
           <h3>
             Nomi: <span className="font-bold capitalize">
-              {name}
+              {name_uz}
             </span>
           </h3>
           <h3>
             Kategoriya: <span className="font-bold capitalize">
-              {category?.name}
+              {category?.name_uz}
             </span>
           </h3>
           <h3>
             Janr: <span className="font-bold capitalize">
-              {genre?.name}
+              {genre?.name_uz}
             </span>
           </h3>
           <h3>

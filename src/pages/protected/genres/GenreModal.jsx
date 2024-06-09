@@ -15,14 +15,14 @@ function GenreModal({ closeModal, extraObject }) {
     const dispatch = useDispatch();
     const [errorMessage, setErrorMessage] = useState("");
     const [genreData, setGenreData] = useState({
-        name: extraObject?.name || "",
+        name_uz: extraObject?.name_uz || "",
     });
 
     const [addGenre, { isLoading, isError }] = useAddGenreMutation()
     const [updateGenre, { isLoading: isLoadingUpdate, isError: isErrorUpdate }] = useUpdateGenreMutation()
 
     const saveEditMeasure = async () => {
-        if (genreData.name.trim() === "")
+        if (genreData.name_uz.trim() === "")
             return setErrorMessage("Kategoriya kiriting!");
         try {
             const result = await (extraObject
@@ -54,8 +54,8 @@ function GenreModal({ closeModal, extraObject }) {
 
             <InputText
                 type="text"
-                defaultValue={genreData.name}
-                updateType="name"
+                defaultValue={genreData.name_uz }
+                updateType="name_uz"
                 containerStyle="mt-2"
                 labelTitle="Janr nomi"
                 updateFormValue={updateFormValue}

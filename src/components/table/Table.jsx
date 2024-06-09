@@ -3,6 +3,7 @@
 import TableRow from "./TableRow";
 
 function Table({ tableDatas }) {
+    console.log(tableDatas)
     const { title, tableHeads, tableBodyItems, data } = tableDatas;
 
     return (

@@ -48,7 +48,7 @@ export const genresApi = createApi({
     updateGenre: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/v1/core/admin/genre/${id}/`,
-        method: "PUT",
+        method: "PATCH",
         body: rest,
         headers: {
           Authorization: getToken(),
